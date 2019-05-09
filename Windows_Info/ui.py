@@ -2,6 +2,15 @@ import db
 import subprocess
 from objects import Computer, RamInfo
 
+def main_menu():
+    print("WELCOME TO WINDOWS 10 REFRESH PROGRAM!")
+    print(" ")
+    print("-" * 95)
+    print("script - Powershell and Python functions")
+    print("query - Database queries")
+    print("exit - Exit the application")
+    print("-" * 95)
+
 def display_menu():
     print("Windows 10 Refresh Application")
     print(" ")
@@ -10,9 +19,17 @@ def display_menu():
     print("run - Run Powershell Script")
     print("read - Read text file")
     print("add - Add data to database")
-    print("exit - Exit the Program.")
+    print("back - back to main menu")
     print("-" * 95)
 
+def display_query_menu():
+    print("QUERY MENU")
+    print(" ")
+    print("-" * 95)
+    print("all - Shows all info")
+    print("ram-a - Shows ram amount and slots")
+    print("back - Back to main menu")
+    print("-" * 95)
 
 def powershell():
     computer_name = input("Please Enter Computer Name: ")
@@ -64,20 +81,40 @@ def add_computer():
         
 def main():
     db.connect()
-    display_menu()
+    main_menu()
     while True:
-        command = input("Enter command: ")
-        if command == "run":
-            powershell()
-        elif command == "read":
-            read_text()
-        elif command == "add":
-            add_computer()
-        elif command == "exit":
+        command_main = input("Please choose a menu: ")
+        if command_main == "script":
+            display_menu()
+            while True:
+                command_script = input("Enter Command: ")
+                if command_script == "run":
+                    powershell()
+                elif command_script == "read":
+                    read_text()
+                elif command_script == "add":
+                    add_computer()
+                elif command_script == "back":
+                    main_menu()
+                    break
+                continue
+        elif command_main == "query":
+            display_query_menu()
+            while True:
+                command_query = input("Choose a query: ")
+                if command_query == "all":
+                    print("Filler Text")
+                elif command_query == "ram-a":
+                    print("filler text")
+                elif command_query == "back":
+                    main_menu()
+                    break
+                continue
+        elif command_main == "exit":
             break
         else:
-            print("Not a valid command please try again")
-            display_menu()
+            print("Not a Valid Command")
+            main_menu()
     db.close()
     print("The application has closed succesfully")
     
