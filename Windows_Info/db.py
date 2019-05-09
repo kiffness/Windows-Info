@@ -14,8 +14,10 @@ def close():
     if conn:
         conn.close()
         
-def insert_data(computer):
-    sql = "INSERT INTO Computers (name, username, windows, cpu) VALUES (?, ?, ?, ?)"
+def insert_data(computer, raminfo):
+    sql_geninfo = "INSERT INTO Computers (name, username, windows, cpu) VALUES (?, ?, ?, ?)"
+    sql_raminfo = "INSERT INTO raminfo (manufacturer, currentamount, totalslots, speed) VALUES (?, ?, ?, ?)"
     with closing(conn.cursor()) as cursor:
-        cursor.execute(sql, (computer.name, computer.username, computer.windows, computer.cpu))
+        cursor.execute(sql_geninfo, (computer.name, computer.username, computer.windows, computer.cpu))
+        cursor.execute(sql_raminfo, (raminfo.manufacturer, raminfo.currentamount, raminfo.totalslots, raminfo.speed))
         conn.commit()

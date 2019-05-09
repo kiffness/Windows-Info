@@ -1,6 +1,6 @@
 import db
 import subprocess
-from objects import Computer
+from objects import Computer, RamInfo
 
 def display_menu():
     print("Windows 10 Refresh Application")
@@ -52,11 +52,14 @@ def add_computer():
         username = f.readline()
         windows = f.readline()
         cpu = f.readline()
-        ram_capacity = f.readline()
-        ram_slots = f.readline()
+        manufacturer = f.readline()
+        speed = f.readline()
+        currentamount = f.readline()
+        totalslots = f.readline()
         
-        computer = Computer(name=name, username=username, windows=windows, cpu=cpu, ram_capacity=ram_capacity, ram_slots=ram_slots)
-        db.insert_data(computer)
+        computer = Computer(name=name, username=username, windows=windows, cpu=cpu)
+        raminfo = RamInfo(manufacturer=manufacturer, currentamount=currentamount, totalslots=totalslots, speed=speed)
+        db.insert_data(computer, raminfo)
         print(username.rstrip() + "'s pc was added to the database succesfully")
         
 def main():
