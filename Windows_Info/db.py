@@ -15,7 +15,7 @@ def close():
         conn.close()
         
 def insert_data(computer):
-    sql = "INSERT INTO Computers (name, username, windows, cpu, ram_capacity, ram_slots) VALUES (?, ?, ?, ?, ?, ?)"
+    sql = "INSERT INTO Computers (name, username, windows, cpu) VALUES (?, ?, ?, ?)"
     with closing(conn.cursor()) as cursor:
-        cursor.execute(sql, (computer.name, computer.username, computer.windows, computer.cpu, computer.ram_capacity, computer.ram_slots))
+        cursor.execute(sql, (computer.name, computer.username, computer.windows, computer.cpu))
         conn.commit()
