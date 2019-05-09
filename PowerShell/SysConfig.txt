@@ -1,6 +1,0 @@
-GMMK1720LM10DT
-JS\gailmarston
-Windows 10
-Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz
-8589934592
-2
