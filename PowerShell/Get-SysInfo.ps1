@@ -26,6 +26,8 @@ $($Computer)
 $($Logged_User)
 $($OS)
 $($CPU.Name)
+$($MEM_Amount.Manufacturer)
+$($MEM_Amount.Configuredclockspeed)
 $($MEM_Amount.Capacity)
 $($MEM.MemoryDevices)
 "@ | Out-File -FilePath 'F:\Windows_10_Refresh\Powershell\SysConfig.txt' -Encoding ascii -Force
