@@ -30,14 +30,19 @@ def read_text():
         username = f.readline()
         windows = f.readline()
         cpu = f.readline()
-        ram_capacity = f.readline()
-        ram_slots = f.readline()
+        manufacturer = f.readline()
+        speed = f.readline()
+        currentamount = f.readline()
+        slots = f.readline()
         
         print("-" * 130)
-        line_format = "{:15s} {:15s} {:15s} {:40s} {:30s} {:5s}"
-        print(line_format.format("Name", "Username", "Windows", "cpu", "ram_capacity", "ram_slots"))
+        line_format1 = "{:15s} {:15s} {:15s} {:40s}"
+        line_format2 = "{:15} {:5s} {:15s} {:5}"
+        print(line_format1.format("Name", "Username", "Windows", "cpu"))
+        print(line_format1.format(name.rstrip(), username.rstrip(), windows.rstrip(), cpu.rstrip()))
         print("-" * 130)
-        print(line_format.format(name.rstrip(), username.rstrip(), windows.rstrip(), cpu.rstrip(), ram_capacity.rstrip(), ram_slots.rstrip()))
+        print(line_format2.format("manufacturer", "speed", "currentamount", "slots"))
+        print(line_format2.format(manufacturer.rstrip(), speed.rstrip(), currentamount.rstrip(), slots.rstrip()))
         print("-" * 130)
         
         
