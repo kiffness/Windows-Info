@@ -128,3 +128,5 @@ dmypy.json
 *.csv
 PowerShell/SysConfig.txt
 PowerShell/AllComputerName.txt
+powershell_test.py
+Windows_Info/test.py
