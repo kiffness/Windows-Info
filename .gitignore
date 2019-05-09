@@ -124,5 +124,5 @@ dmypy.json
 
 /.project
 /.pydevproject
-/.xlxs
-/.csv
+*.xlxs
+*.csv
