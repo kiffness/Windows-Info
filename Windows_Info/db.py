@@ -16,8 +16,8 @@ def close():
         
 def insert_data(computer, raminfo):
     sql_geninfo = "INSERT INTO Computers (name, username, windows, cpu) VALUES (?, ?, ?, ?)"
-    sql_raminfo = "INSERT INTO raminfo (manufacturer, currentamount, totalslots, speed) VALUES (?, ?, ?, ?)"
+    sql_raminfo = "INSERT INTO raminfo (manufacturer, currentamount, totalslots, speed, ddr) VALUES (?, ?, ?, ?, ?)"
     with closing(conn.cursor()) as cursor:
         cursor.execute(sql_geninfo, (computer.name, computer.username, computer.windows, computer.cpu))
-        cursor.execute(sql_raminfo, (raminfo.manufacturer, raminfo.currentamount, raminfo.totalslots, raminfo.speed))
+        cursor.execute(sql_raminfo, (raminfo.manufacturer, raminfo.currentamount, raminfo.totalslots, raminfo.speed, raminfo.ddr))
         conn.commit()

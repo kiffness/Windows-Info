@@ -1,4 +1,5 @@
 import db
+import misc_func
 import subprocess
 from objects import Computer, RamInfo
 
@@ -42,43 +43,37 @@ def powershell():
     p.communicate()
     
 def read_text():
-    with open (r'f:\Windows_10_Refresh\Powershell\SysConfig.txt', 'r') as f:
-        name = f.readline()
-        username = f.readline()
-        windows = f.readline()
-        cpu = f.readline()
-        manufacturer = f.readline()
-        speed = f.readline()
-        currentamount = f.readline()
-        slots = f.readline()
+    text = misc_func.format_text()
         
-        print("-" * 130)
-        line_format1 = "{:15s} {:15s} {:15s} {:40s}"
-        line_format2 = "{:15} {:5s} {:15s} {:5}"
-        print(line_format1.format("Name", "Username", "Windows", "cpu"))
-        print(line_format1.format(name.rstrip(), username.rstrip(), windows.rstrip(), cpu.rstrip()))
-        print("-" * 130)
-        print(line_format2.format("manufacturer", "speed", "currentamount", "slots"))
-        print(line_format2.format(manufacturer.rstrip(), speed.rstrip(), currentamount.rstrip(), slots.rstrip()))
-        print("-" * 130)
+    print("-" * 130)
+    line_format1 = "{:15s} {:15s} {:15s} {:40s}"
+    line_format2 = "{:15} {:5s} {:5s} {:15s} {:5}"
+    print(line_format1.format("Name", "Username", "Windows", "cpu"))
+    print(line_format1.format(text[0], text[1], text[2], text[3]))
+    print("-" * 130)
+    print(line_format2.format("manufacturer", "speed", "ddr", "currentamount", "slots"))
+    print(line_format2.format(text[4], text[5], text[6], text[7], text[8]))
+    print("-" * 130)
         
         
 def add_computer():
-    with open (r'f:\Windows_10_Refresh\Powershell\SysConfig.txt', 'r') as f: # Change to path where your txt file will be
-        name = f.readline()
-        username = f.readline()
-        windows = f.readline()
-        cpu = f.readline()
-        manufacturer = f.readline()
-        speed = f.readline()
-        currentamount = f.readline()
-        totalslots = f.readline()
-        
-        computer = Computer(name=name, username=username, windows=windows, cpu=cpu)
-        raminfo = RamInfo(manufacturer=manufacturer, currentamount=currentamount, totalslots=totalslots, speed=speed)
-        db.insert_data(computer, raminfo)
-        print(username.rstrip() + "'s pc was added to the database succesfully")
-        
+    text = misc_func.format_text()
+    name = text[0]
+    username = text[1]
+    windows = text[2]
+    cpu = text[3]
+    manufacturer = text[4] 
+    speed = text[5]
+    ddr = text[6]
+    currentamount = text[7] 
+    totalslots = text[8]
+    
+    computer = Computer(name=name, username=username, windows=windows, cpu=cpu)
+    raminfo = RamInfo(manufacturer=manufacturer, currentamount=currentamount, totalslots=totalslots, speed=speed, ddr=ddr)
+    db.insert_data(computer, raminfo)
+    print(text[1] + "'s pc was added to the database succesfully")
+
+
 def main():
     db.connect()
     main_menu()

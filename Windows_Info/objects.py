@@ -7,9 +7,10 @@ class Computer:
         self.cpu = cpu
         
 class RamInfo:
-    def __init__(self, ramid=0,manufacturer=None , totalslots=0, currentamount=None, speed=0):
+    def __init__(self, ramid=0,manufacturer=None , totalslots=0, currentamount=None, speed=0, ddr=None):
         self.ramid = ramid
         self.manufacturer = manufacturer
         self.currentamount = currentamount
         self.totalslots = totalslots
         self.speed = speed
+        self.ddr = ddr
