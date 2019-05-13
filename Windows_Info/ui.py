@@ -1,7 +1,7 @@
 import db
 import misc_func
 import subprocess
-from objects import Computer, RamInfo
+from objects import Computer
 
 def main_menu():
     print("WELCOME TO WINDOWS 10 REFRESH PROGRAM!")
@@ -47,12 +47,12 @@ def read_text():
         
     print("-" * 130)
     line_format1 = "{:15s} {:15s} {:15s} {:40s}"
-    line_format2 = "{:15} {:5s} {:5s} {:15s} {:5}"
+    line_format2 = "{:15} {:5s} {:5s} {:15s}"
     print(line_format1.format("Name", "Username", "Windows", "cpu"))
     print(line_format1.format(text[0], text[1], text[2], text[3]))
     print("-" * 130)
-    print(line_format2.format("manufacturer", "speed", "ddr", "currentamount", "slots"))
-    print(line_format2.format(text[4], text[5], text[6], text[7], text[8]))
+    print(line_format2.format("speed", "ddr", "currentamount", "slots"))
+    print(line_format2.format(text[4], text[5], text[6], text[7]))
     print("-" * 130)
         
         
@@ -62,15 +62,14 @@ def add_computer():
     username = text[1]
     windows = text[2]
     cpu = text[3]
-    manufacturer = text[4] 
-    speed = text[5]
-    ddr = text[6]
-    currentamount = text[7] 
-    totalslots = text[8]
+    speed = text[4]
+    ddr = text[5]
+    currentamount = text[6] 
+    totalslots = text[7]
     
-    computer = Computer(name=name, username=username, windows=windows, cpu=cpu)
-    raminfo = RamInfo(manufacturer=manufacturer, currentamount=currentamount, totalslots=totalslots, speed=speed, ddr=ddr)
-    db.insert_data(computer, raminfo)
+    computer = Computer(name=name, username=username, windows=windows, cpu=cpu,
+                        currentamount=currentamount, totalslots=totalslots, speed=speed, ddr=ddr)
+    db.insert_data(computer)
     print(text[1] + "'s pc was added to the database succesfully")
 
 
