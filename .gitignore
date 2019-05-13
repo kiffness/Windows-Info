@@ -130,3 +130,5 @@ PowerShell/SysConfig.txt
 PowerShell/AllComputerName.txt
 powershell_test.py
 Windows_Info/test.py
+Windows_Info/test_ui.py
+PowerShell/NoBOM.txt
