@@ -15,8 +15,8 @@ def close():
         conn.close()
         
 def insert_data(computer):
-    sql_geninfo = "INSERT INTO Computers (name, username, windows, cpu, currentamount, totalslots, speed, ddr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    sql_geninfo = "INSERT INTO Computers (name, username, windows, cpu, currentamount, totalslots) VALUES (?, ?, ?, ?, ?, ?)"
     with closing(conn.cursor()) as cursor:
         cursor.execute(sql_geninfo, (computer.name, computer.username, computer.windows, computer.cpu,
-                                     computer.currentamount, computer.totalslots, computer.speed, computer.ddr))
+                                     computer.currentamount, computer.totalslots))
         conn.commit()

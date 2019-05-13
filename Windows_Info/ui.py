@@ -43,32 +43,36 @@ def powershell():
     p.communicate()
     
 def read_text():
-    text = misc_func.format_text()
+    with open (r'f:\Windows_10_Refresh\Powershell\SysConfig.txt', 'r') as f:
+     
+    
+        text = f.read().splitlines()
         
-    print("-" * 130)
-    line_format1 = "{:15s} {:15s} {:15s} {:40s}"
-    line_format2 = "{:15} {:5s} {:5s} {:15s}"
-    print(line_format1.format("Name", "Username", "Windows", "cpu"))
-    print(line_format1.format(text[0], text[1], text[2], text[3]))
-    print("-" * 130)
-    print(line_format2.format("speed", "ddr", "currentamount", "slots"))
-    print(line_format2.format(text[4], text[5], text[6], text[7]))
-    print("-" * 130)
+        print("-" * 130)
+        line_format1 = "{:15s} {:15s} {:15s} {:40s}"
+        line_format2 = "{:50s} {:5s}"
+        print(line_format1.format("Name", "Username", "Windows", "cpu"))
+        print(line_format1.format(text[0], text[1], text[2], text[3]))
+        print("-" * 130)
+        print(line_format2.format("currentamount", "slots"))
+        print(line_format2.format(text[4], text[5]))
+        print("-" * 130)
         
         
 def add_computer():
-    text = misc_func.format_text()
-    name = text[0]
-    username = text[1]
-    windows = text[2]
-    cpu = text[3]
-    speed = text[4]
-    ddr = text[5]
-    currentamount = text[6] 
-    totalslots = text[7]
+    with open (r'f:\Windows_10_Refresh\Powershell\SysConfig.txt', 'r') as f:
+     
+    
+        text = f.read().splitlines()
+        name = text[0]
+        username = text[1]
+        windows = text[2]
+        cpu = text[3]
+        currentamount = text[4] 
+        totalslots = text[5]
     
     computer = Computer(name=name, username=username, windows=windows, cpu=cpu,
-                        currentamount=currentamount, totalslots=totalslots, speed=speed, ddr=ddr)
+                        currentamount=currentamount, totalslots=totalslots)
     db.insert_data(computer)
     print(text[1] + "'s pc was added to the database succesfully")
 
