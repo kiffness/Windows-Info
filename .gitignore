@@ -133,3 +133,4 @@ Windows_Info/test.py
 Windows_Info/test_ui.py
 PowerShell/NoBOM.txt
 PowerShell/SysConfig2.txt
+Windows_Info/secret.py
