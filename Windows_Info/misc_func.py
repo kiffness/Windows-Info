@@ -1,10 +1,36 @@
 import subprocess
 import filecmp
+import smtplib
+from email.message import EmailMessage
+import secret
+from tqdm import tqdm
 
 import db
 from objects import Computer
 
+def email():
+    """Connect to email server and account"""
+    # Connecting to account
+    smtpobj = smtplib.SMTP('smtp.office365.com', 587)
+    smtpobj.ehlo()
+    smtpobj.starttls()
+    
+    # Logging in to SMTP server
 
+    smtpobj.login(secret.login['email'], secret.login['password'])
+    
+    # Send E-mail
+    msg = EmailMessage()
+    msg.set_content('Script is Finished')
+
+    msg['Subject'] = 'Finished Running Windows 10 Refresh'
+    msg['From'] = secret.login['email']
+    msg['To'] = secret.login['email']
+
+    smtpobj.send_message(msg)
+    
+    # logging out
+    smtpobj.quit()
 
 def get_computername():
     with open (r'f:\Windows_10_Refresh\Powershell\NoBOM.txt', 'r') as f:
@@ -12,7 +38,14 @@ def get_computername():
         x = f.read().splitlines()
         
         return x
-          
+
+def return_count():
+    
+    thefilepath = r'f:\Windows_10_Refresh\Powershell\NoBOM.txt'
+
+    count = len(open(thefilepath).readlines( ))
+
+    return count          
 
 def read_text():
     with open (r'f:\Windows_10_Refresh\Powershell\SysConfig.txt', 'r') as f:
@@ -33,44 +66,40 @@ def read_text():
 def add_computer():
     
     file1 = 'f:\Windows_10_Refresh\Powershell\SysConfig.txt'
-    file2 = 'f:\Windows_10_Refresh\Powershell\SysConfig2.txt'
-    with open (file1, 'r') as f1, open(file2, 'r+') as f2:
+    with open (file1, 'r') as f1:
      
-        if filecmp.cmp(file1, file2):
-            return ""
-        else:
-            text = f1.read().splitlines()
-            name = text[0]
-            username = text[1]
-            windows = text[2]
-            cpu = text[3]
-            currentamount = text[4] 
-            totalslots = text[5]
+        text = f1.read().splitlines()
+        name = text[0]
+        username = text[1]
+        windows = text[2]
+        cpu = text[3]
+        currentamount = text[4] 
+        totalslots = text[5]
             
-            computer = Computer(name=name, username=username, windows=windows, cpu=cpu,
-                                currentamount=currentamount, totalslots=totalslots)
-            db.insert_data(computer)
-            
-            for line in text:
-                f2.write(line + "\n")
-                
+        computer = Computer(name=name, username=username, windows=windows, cpu=cpu,
+                            currentamount=currentamount, totalslots=totalslots)
+        db.insert_data(computer)
+                      
                 
 def powershell():
     computer_name = get_computername()
     
-    for computer in computer_name:
-        print("#" * 95)
-        print(f"Trying to reach " + computer)
+    for computer in tqdm(computer_name):
         print(" ")
+#         print("#" * 95)
+        print(f"Trying to reach " + computer)
+#         print(" ")
         PowerShellPath = r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
         PowerShellCmd = "F:\\Windows_10_Refresh\\Powershell\\Get-SysInfo.ps1" # Change Path here to where your powershell script is saved
  
         p = subprocess.Popen([PowerShellPath, '-ExecutionPolicy', 'Unrestricted', PowerShellCmd, computer])
      
-        print("Gathering Information")
+#         print("Gathering Information")
         p.communicate()
         
         
         print(" ")
         add_computer()
     
+    email()
+ 

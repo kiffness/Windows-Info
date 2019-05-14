@@ -8,3 +8,4 @@ class Computer:
         self.cpu = cpu
         self.currentamount = currentamount
         self.totalslots = totalslots
+        

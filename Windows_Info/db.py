@@ -21,7 +21,7 @@ def insert_data(computer):
         result = cursor.fetchone()
         
         if result:
-            print(f"{computer.username}'s pc in sysconfig.txt already exists!!!")
+            print("")
         else:
             print(f"{computer.username}'s pc added succesfully")
             cursor.execute(sql_geninfo, (computer.name, computer.username, computer.windows, computer.cpu,

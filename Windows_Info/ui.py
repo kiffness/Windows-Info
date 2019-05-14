@@ -1,6 +1,5 @@
 import db
 import misc_func
-import subprocess
 from objects import Computer
 
 def main_menu():
