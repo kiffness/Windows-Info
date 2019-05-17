@@ -16,7 +16,8 @@ def display_menu():
     print(" ")
     print("COMMAND MENU")
     print("-" * 95)
-    print("run - Run Powershell Script")
+    print("add - Add computers to database")
+    print("refresh - Refresh Computer names for add")
     print("read - Read text file")
     print("add - Add data to database")
     print("back - back to main menu")
@@ -41,8 +42,10 @@ def main():
             display_menu()
             while True:
                 command_script = input("Enter Command: ").rstrip()
-                if command_script == "run":
+                if command_script == "add":
                     misc_func.powershell()
+                elif command_script == "refresh":
+                    misc_func.refresh_list()
                 elif command_script == "read":
                     misc_func.read_text()
                 elif command_script == "add":
