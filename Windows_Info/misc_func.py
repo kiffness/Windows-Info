@@ -102,4 +102,12 @@ def powershell():
         add_computer()
     
     email()
- 
+    
+def refresh_list():
+    PowerShellPath = r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
+    PowerShellCmd = r'F:\Windows_10_Refresh\Powershell\computer_name_only.ps1'
+    
+    f = subprocess.Popen([PowerShellPath, '-ExecutionPolicy', 'Unrestricted',PowerShellCmd])
+    f.communicate()
+
+    print("Finished")
