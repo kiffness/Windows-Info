@@ -128,9 +128,11 @@ dmypy.json
 *.csv
 PowerShell/SysConfig.txt
 PowerShell/AllComputerName.txt
+Windows_Info/AllComputerName.txt
 powershell_test.py
 Windows_Info/test.py
 Windows_Info/test_ui.py
 PowerShell/NoBOM.txt
 PowerShell/SysConfig2.txt
+PowerShell/Get-SharedMailBox.ps1
 Windows_Info/secret.py
