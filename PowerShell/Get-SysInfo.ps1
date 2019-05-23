@@ -31,5 +31,5 @@ $($MEM.MemoryDevices)
 "@ | Out-File -FilePath 'F:\Windows_10_Refresh\Powershell\SysConfig.txt' -Encoding ascii -Force
 }
 else {
-    Write-Host -ForegroundColor Red "$Computer Can't be reached adding to txt file"
+    Write-Host -ForegroundColor Red "$Computer Can't be reached"
 }
