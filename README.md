@@ -1,12 +1,13 @@
 # Windows-Info
 Script to get info about windows computers and save in sqlite3 database. The info it will collect is Computer name, Logged in user,
-Windows version, Cpu brand and type, Ram capacity and the amount of ram slots on the motherboard.
+Windows version, Cpu brand and type, Ram capacity and the amount of ram slots on the motherboard expandoing on these I added last logon date and the ipaddress of the remote
+Computer.
 ## Why?
 I was tasked with doing a windows 10 refresh on all the computers in the company where I work and instead of gathering all the information I
 need about the computers by walking to each one. I can now remotley connect to a computer using its computer name get the info I need and 
 save it in a database from the comfort of my chair
 ## What does it do
-First the powershell script gathers the information I need from the remote computers and saves it in a text file, Then my Pyhton program
+First the powershell script gathers the information I need from the remote computers and saves it in a text file, Then my Python program
 will read in that text file and save the information to a sqlite databse. I gave the program a simple command line ui just so i could add
 some extra functionality like viewing the text file but not writing it to the database and I will add to it in the future
 ## Getting started 
