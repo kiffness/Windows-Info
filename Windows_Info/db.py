@@ -26,8 +26,9 @@ def make_computer(row):
         row["totalslots"]
     )
       
-def insert_data(computer):
+def insert_data(computer, ipv4):
     sql_geninfo = "INSERT INTO Computers (name, username, windows, cpu, currentamount, totalslots) VALUES (?, ?, ?, ?, ?, ?)"
+    sql_ipv4 = "INSERT INTO logon (lastlogon, ipaddress) VALUES (?, ?)"
     with closing(conn.cursor()) as cursor:
         cursor.execute('SELECT name FROM Computers WHERE name=?', (computer.name,))
         result = cursor.fetchone()
@@ -38,6 +39,7 @@ def insert_data(computer):
             print(f"{computer.username}'s pc added succesfully")
             cursor.execute(sql_geninfo, (computer.name, computer.username, computer.windows, computer.cpu,
                            computer.currentamount, computer.totalslots))
+            cursor.execute(sql_ipv4, (ipv4.lastlogon, ipv4.ipaddress))
             conn.commit()
 
 def select_os():

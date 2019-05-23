@@ -2,6 +2,8 @@
 [string]$Computer
 )
 
+
+
 $Connection = Test-Connection $Computer -Count 1 -Quiet
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
@@ -12,6 +14,8 @@ if ($Connection -eq "True"){
     $MEM = Get-WmiObject -ClassName Win32_PhysicalMemoryArray -ComputerName $Computer
     $MEM_AMOUNT = Get-WmiObject -ClassName Win32_PhysicalMemory -ComputerName $Computer
     $DIMM = $MEM_AMOUNT = Get-WmiObject CIM_PHYSICALMEMORY -ComputerName $Computer
+	$LastLogon = (Get-ADComputer -Identity $Computer -Properties LastLogonDate).LastLogonDate
+	$IPv4 = (Get-ADComputer -Identity $Computer -Properties IPv4Address).IPv4Address
 
     switch -Wildcard ($ComputerOS){
       "6.1.7600" {$OS = "Windows 7"; break}
@@ -28,6 +32,8 @@ $($OS)
 $($CPU.Name)
 $($MEM_Amount.Capacity)
 $($MEM.MemoryDevices)
+$($LastLogon)
+$($IPv4)
 "@ | Out-File -FilePath 'F:\Windows_10_Refresh\Powershell\SysConfig.txt' -Encoding ascii -Force
 }
 else {

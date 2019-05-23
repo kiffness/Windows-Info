@@ -8,4 +8,9 @@ class Computer:
         self.cpu = cpu
         self.currentamount = currentamount
         self.totalslots = totalslots
+
+class LastLogon:
+    def __init__(self, lastlogon=None, ipaddress=None):
+        self.lastlogon = lastlogon
+        self.ipaddress = ipaddress
         

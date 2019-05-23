@@ -50,6 +50,8 @@ def main():
                     misc_func.read_text()
                 elif command_script == "add":
                     misc_func.add_computer()
+                elif command_script == "test":
+                   misc_func.last_logon()
                 elif command_script == "back":
                     main_menu()
                     break

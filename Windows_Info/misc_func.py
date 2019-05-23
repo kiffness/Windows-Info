@@ -6,7 +6,7 @@ import secret
 from tqdm import tqdm
 
 import db
-from objects import Computer
+from objects import Computer, LastLogon
 
 def email():
     """Connect to email server and account"""
@@ -88,10 +88,13 @@ def add_computer():
         cpu = text[3]
         currentamount = text[4] 
         totalslots = text[5]
+        lastlogon = text[6]
+        ipaddress = text[7]
             
         computer = Computer(name=name, username=username, windows=windows, cpu=cpu,
                             currentamount=currentamount, totalslots=totalslots)
-        db.insert_data(computer)
+        ipv4 = LastLogon(lastlogon=lastlogon, ipaddress=ipaddress)
+        db.insert_data(computer, ipv4)
                       
                 
 def powershell():
@@ -115,7 +118,7 @@ def powershell():
         add_computer()
     
     email()
-    
+
 def refresh_list():
     PowerShellPath = r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
     PowerShellCmd = r'F:\Windows_10_Refresh\Powershell\computer_name_only.ps1'
