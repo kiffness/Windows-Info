@@ -62,6 +62,19 @@ def read_text():
         print(line_format2.format("currentamount", "slots"))
         print(line_format2.format(text[4], text[5]))
         print("-" * 130)
+
+def view_computers():
+        print("-" * 130)
+        line_format1 = "{:15s} {:25s} {:15s}"
+        print(line_format1.format("Name", "Username", "Windows"))
+        print("-" * 130)
+        computers = db.select_os()
+        for computer in computers:
+                print(line_format1.format(computer.name,
+                      computer.username,
+                      computer.windows))
+        print("-" * 130)
+
         
 def add_computer():
     

@@ -28,7 +28,7 @@ def display_query_menu():
     print(" ")
     print("-" * 95)
     print("all - Shows all info")
-    print("ram-a - Shows ram amount and slots")
+    print("os - Select an os and show all pc's")
     print("back - Back to main menu")
     print("-" * 95)
     
@@ -60,8 +60,8 @@ def main():
                 command_query = input("Choose a query: ").rstrip()
                 if command_query == "all":
                     print("Filler Text")
-                elif command_query == "ram-a":
-                    print("filler text")
+                elif command_query == "os":
+                    misc_func.view_computers()
                 elif command_query == "back":
                     main_menu()
                     break
