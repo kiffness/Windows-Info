@@ -136,6 +136,7 @@ PowerShell/NoBOM.txt
 PowerShell/SysConfig2.txt
 PowerShell/Get-SharedMailBox.ps1
 Windows_Info/secret.py
+Windows_Info/gui_test.py
 PowerShell/ADComputer.ps1
 PowerShell/Test.txt
 .vs
