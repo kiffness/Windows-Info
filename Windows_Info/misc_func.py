@@ -9,7 +9,7 @@ import db
 from objects import Computer, LastLogon
 
 def email():
-    """Connect to email server and account"""
+    """Connect to email server and account, Send Email when script completes"""
     # Connecting to account
     smtpobj = smtplib.SMTP('smtp.office365.com', 587)
     smtpobj.ehlo()
@@ -17,6 +17,7 @@ def email():
     
     # Logging in to SMTP server
 
+    # Secret refers to another python file that has my email creds in a list
     smtpobj.login(secret.login['email'], secret.login['password'])
     
     # Send E-mail
@@ -33,6 +34,7 @@ def email():
     smtpobj.quit()
 
 def get_computername():
+    """Returns a Computer name from text file which is then iterated over in powershell()"""
     with open (r'f:\Windows_10_Refresh\Powershell\NoBOM.txt', 'r') as f:
         
         x = f.read().splitlines()
@@ -40,7 +42,7 @@ def get_computername():
         return x
 
 def return_count():
-    
+    """Returns The Number of lines in text file made by computer_name_only.ps1"""
     thefilepath = r'f:\Windows_10_Refresh\Powershell\NoBOM.txt'
 
     count = len(open(thefilepath).readlines( ))
@@ -48,6 +50,7 @@ def return_count():
     return count          
 
 def read_text():
+    """Read the Text File made by powershell() and print and format it"""
     with open (r'f:\Windows_10_Refresh\Powershell\SysConfig.txt', 'r') as f:
      
     
@@ -63,20 +66,25 @@ def read_text():
         print(line_format2.format(text[4], text[5]))
         print("-" * 130)
 
-def view_computers():
-        print("-" * 130)
-        line_format1 = "{:15s} {:25s} {:15s}"
-        print(line_format1.format("Name", "Username", "Windows"))
-        print("-" * 130)
-        computers = db.select_os()
-        for computer in computers:
-                print(line_format1.format(computer.name,
-                      computer.username,
-                      computer.windows))
-        print("-" * 130)
+def format_select_os():
+    """Returns Formatted Information from the db.select_os() function"""
+    # print("-" * 130)
+    line_format1 = "{:15s} {:25s} {:15s}"
+    print(line_format1.format("Name", "Username", "Windows"))
+    print("-" * 130)
+    computers = db.select_os()
+    for computer in computers:
+        print(line_format1.format(computer.name,
+              computer.username,
+              computer.windows))
+    print("-" * 130)
 
         
 def add_computer():
+    """
+    Reads in Text file created by powershell() assigns it to a variable then passes the Info to
+    Computer, LastLogon Class which creates an object. Lastly the function passes the returned object to db.insert data
+    """
     
     file1 = 'f:\Windows_10_Refresh\Powershell\SysConfig.txt'
     with open (file1, 'r') as f1:
@@ -95,9 +103,12 @@ def add_computer():
                             currentamount=currentamount, totalslots=totalslots)
         ipv4 = LastLogon(lastlogon=lastlogon, ipaddress=ipaddress)
         db.insert_data(computer, ipv4)
+        
+    
                       
                 
 def powershell():
+    """Runs Powershell Script, emails when done"""
     computer_name = get_computername()
     
     for computer in tqdm(computer_name):
@@ -120,6 +131,7 @@ def powershell():
     email()
 
 def refresh_list():
+    """Refreshes text file used to get computer names for powershell()"""
     PowerShellPath = r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
     PowerShellCmd = r'F:\Windows_10_Refresh\Powershell\computer_name_only.ps1'
     

@@ -3,6 +3,7 @@ import misc_func
 from objects import Computer
 
 def main_menu():
+    """Print the main menu and options"""
     print("WELCOME TO WINDOWS 10 REFRESH PROGRAM!")
     print(" ")
     print("-" * 95)
@@ -12,6 +13,7 @@ def main_menu():
     print("-" * 95)
 
 def display_menu():
+    """Prints the Script menu and options"""
     print("Windows 10 Refresh Application")
     print(" ")
     print("COMMAND MENU")
@@ -24,6 +26,7 @@ def display_menu():
     print("-" * 95)
 
 def display_query_menu():
+    """Prints Query menu and options"""
     print("QUERY MENU")
     print(" ")
     print("-" * 95)
@@ -34,6 +37,7 @@ def display_query_menu():
     
 
 def main():
+    """Main Function Refrences all other functions and accepts user input"""
     db.connect()
     main_menu()
     while True:

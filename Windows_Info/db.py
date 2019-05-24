@@ -5,6 +5,7 @@ from objects import Computer
 conn = None 
 
 def connect():
+    """Connects to Sqlite Database"""
     global conn
     if not conn:
         conn = sqlite3.connect(r"F:\Databases\SystemInfo.sqlite3") # Change path here to where your database is 
@@ -12,10 +13,12 @@ def connect():
 
 
 def close():
+    """Closes connection to database"""
     if conn:
         conn.close()
 
 def make_computer(row):
+    """Returns List of Computer object use when pulling data from database"""
     return Computer(
         row["computerid"],
         row["name"],
@@ -27,6 +30,10 @@ def make_computer(row):
     )
       
 def insert_data(computer, ipv4):
+    """
+    Inserts Data Into relevent tables in Database. Params: Pass variables into the two classes and then just pass those into this function
+    Used by misc_func.add_computer()
+    """
     sql_geninfo = "INSERT INTO Computers (name, username, windows, cpu, currentamount, totalslots) VALUES (?, ?, ?, ?, ?, ?)"
     sql_ipv4 = "INSERT INTO logon (lastlogon, ipaddress) VALUES (?, ?)"
     with closing(conn.cursor()) as cursor:
@@ -43,7 +50,7 @@ def insert_data(computer, ipv4):
             conn.commit()
 
 def select_os():
-        """Function to query db based on os"""
+        """Function to query db based on os just enter the os like Windows 7 SP1"""
         os = input("Please select os to query?: ")
         query = "SELECT * FROM Computers WHERE windows=?"
         with closing (conn.cursor()) as cursor:
