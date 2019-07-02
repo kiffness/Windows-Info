@@ -53,8 +53,20 @@ def insert_data(computer, ipv4):
 
 def select_os():
         """Function to query db based on os just enter the os like Windows 7 SP1"""
+        connect()
         menu.display_select_os_menu()
-        os = input("Please select os to query?: ")
+
+        while True:
+            os = None
+            choice = input("Please Select Os 1 or 2: ").rstrip()
+            if choice == "1":
+                os = "Windows 7 SP1" 
+                break
+            elif choice == "2":
+                os = "Windows 10"
+                break
+        print(os)
+
         query = "SELECT * FROM Computers WHERE windows=?"
         with closing (conn.cursor()) as cursor:
                 cursor.execute(query, (os,))
@@ -64,3 +76,4 @@ def select_os():
                 for result in results:
                         computers.append(make_computer(result))
                 return computers
+        close()

@@ -67,7 +67,7 @@ def main():
                 if command_query == "all":
                     print("Filler Text")
                 elif command_query == "os":
-                    misc_func.view_computers()
+                    misc_func.format_select_os()
                 elif command_query == "back":
                     main_menu()
                     break
