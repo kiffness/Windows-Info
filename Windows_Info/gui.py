@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import Menu
 
 import misc_func
+import db
 
 LARGE_FONT= ("Verdana", 12)
 
