@@ -21,7 +21,7 @@ def display_menu():
     print("add - Add computers to database")
     print("refresh - Refresh Computer names for add")
     print("read - Read text file")
-    print("add - Add data to database")
+    # print("add - Add data to database")
     print("back - back to main menu")
     print("-" * 95)
 
@@ -52,8 +52,8 @@ def main():
                     misc_func.refresh_list()
                 elif command_script == "read":
                     misc_func.read_text()
-                elif command_script == "add":
-                    misc_func.add_computer()
+                # elif command_script == "add":
+                    # misc_func.add_computer()
                 elif command_script == "test":
                    misc_func.last_logon()
                 elif command_script == "back":

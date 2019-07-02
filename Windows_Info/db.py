@@ -1,5 +1,7 @@
 import sqlite3
 from contextlib import closing
+
+import menu
 from objects import Computer
 
 conn = None 
@@ -41,7 +43,7 @@ def insert_data(computer, ipv4):
         result = cursor.fetchone()
         
         if result:
-            print("")
+            print("---")
         else:
             print(f"{computer.username}'s pc added succesfully")
             cursor.execute(sql_geninfo, (computer.name, computer.username, computer.windows, computer.cpu,
@@ -51,6 +53,7 @@ def insert_data(computer, ipv4):
 
 def select_os():
         """Function to query db based on os just enter the os like Windows 7 SP1"""
+        menu.display_select_os_menu()
         os = input("Please select os to query?: ")
         query = "SELECT * FROM Computers WHERE windows=?"
         with closing (conn.cursor()) as cursor:
