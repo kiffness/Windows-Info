@@ -100,9 +100,9 @@ def add_computer():
         ipaddress = text[7]
             
         computer = Computer(name=name, username=username, windows=windows, cpu=cpu,
-                            currentamount=currentamount, totalslots=totalslots)
-        ipv4 = LastLogon(lastlogon=lastlogon, ipaddress=ipaddress)
-        db.insert_data(computer, ipv4)
+                            currentamount=currentamount, totalslots=totalslots,
+                            lastlogon=lastlogon, ipaddress=ipaddress)
+        db.update_data(computer)
         
     
                       
@@ -111,7 +111,7 @@ def powershell():
     """Runs Powershell Script, emails when done"""
     computer_name = get_computername()
     
-    for computer in tqdm(computer_name):
+    for computer in computer_name:
         print(" ")
 #         print("#" * 95)
         print(f"Trying to reach " + computer)

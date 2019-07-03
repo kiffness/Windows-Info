@@ -28,28 +28,30 @@ def make_computer(row):
         row["windows"],
         row["cpu"],
         row["currentamount"],
-        row["totalslots"]
+        row["totalslots"],
+        row["lastlogon"],
+        row["ipaddress"],
     )
-      
-def insert_data(computer, ipv4):
+
+def update_data(computer):
     """
-    Inserts Data Into relevent tables in Database. Params: Pass variables into the two classes and then just pass those into this function
+    Updates Data Into relevent tables in Database. Params: Pass variables into the two classes and then just pass those into this function
     Used by misc_func.add_computer()
     """
-    sql_geninfo = "INSERT INTO Computers (name, username, windows, cpu, currentamount, totalslots) VALUES (?, ?, ?, ?, ?, ?)"
-    sql_ipv4 = "INSERT INTO logon (lastlogon, ipaddress) VALUES (?, ?)"
+    sql_updateinfo = "UPDATE Computers SET username = ?, lastlogon = ?, ipaddress= ? WHERE name = ?"
+    sql_newinfo = "INSERT INTO Computers (name, username, windows, cpu, currentamount, totalslots, lastlogon, ipaddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     with closing(conn.cursor()) as cursor:
         cursor.execute('SELECT name FROM Computers WHERE name=?', (computer.name,))
         result = cursor.fetchone()
         
         if result:
-            print("---")
+            print(f"updating {computer.name} is being updated")
+            cursor.execute(sql_updateinfo, (computer.username, computer.lastlogon, computer.ipaddress, computer.name))
         else:
             print(f"{computer.username}'s pc added succesfully")
-            cursor.execute(sql_geninfo, (computer.name, computer.username, computer.windows, computer.cpu,
-                           computer.currentamount, computer.totalslots))
-            cursor.execute(sql_ipv4, (ipv4.lastlogon, ipv4.ipaddress))
-            conn.commit()
+            cursor.execute(sql_newinfo, (computer.name, computer.username, computer.windows, computer.cpu,
+                           computer.currentamount, computer.totalslots, computer.lastlogon, computer.ipaddress))
+        conn.commit()
 
 def select_os():
         """Function to query db based on os just enter the os like Windows 7 SP1"""

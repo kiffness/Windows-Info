@@ -1,7 +1,7 @@
 class Computer:
     """Builds Computer Object Params are (computerid, name, username, windows, cpu)"""
     def __init__(self, computerid=0, name=None, username=None, windows=None, cpu=None,
-                 totalslots=0, currentamount=None):
+                 totalslots=0, currentamount=None, lastlogon=None, ipaddress=None):
         self.computerid = computerid
         self.name = name
         self.username = username
@@ -9,6 +9,8 @@ class Computer:
         self.cpu = cpu
         self.currentamount = currentamount
         self.totalslots = totalslots
+        self.lastlogon = lastlogon
+        self.ipaddress = ipaddress
 
 class LastLogon:
     """Builds Object for ipaddress database. Params are (lastlogon, ipaddress)"""
