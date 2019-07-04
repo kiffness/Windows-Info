@@ -8,6 +8,7 @@ import db
 LARGE_FONT= ("Verdana", 12)
 
 
+
 class AllWidgets(tk.Frame):
     """A class for all my widgets"""
     def __init__(self, parent, *args, **kwargs):
@@ -63,8 +64,10 @@ class Application(tk.Tk):
         
 
 def main():
+    db.connect()
     app = Application()
     app.mainloop()
+    db.close()
 
 if __name__ == "__main__":
     main()
