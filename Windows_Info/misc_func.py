@@ -90,19 +90,23 @@ def add_computer():
     with open (file1, 'r') as f1:
      
         text = f1.read().splitlines()
-        name = text[0]
-        username = text[1]
-        windows = text[2]
-        cpu = text[3]
-        currentamount = text[4] 
-        totalslots = text[5]
-        lastlogon = text[6]
-        ipaddress = text[7]
+
+        if text:
+            name = text[0]
+            username = text[1]
+            windows = text[2]
+            cpu = text[3]
+            currentamount = text[4] 
+            totalslots = text[5]
+            lastlogon = text[6]
+            ipaddress = text[7]
             
-        computer = Computer(name=name, username=username, windows=windows, cpu=cpu,
-                            currentamount=currentamount, totalslots=totalslots,
-                            lastlogon=lastlogon, ipaddress=ipaddress)
-        db.update_data(computer)
+            computer = Computer(name=name, username=username, windows=windows, cpu=cpu,
+                                currentamount=currentamount, totalslots=totalslots,
+                                lastlogon=lastlogon, ipaddress=ipaddress)
+            db.update_data(computer)
+        else:
+            print("")
         
     
                       
