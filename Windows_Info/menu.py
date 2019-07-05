@@ -25,6 +25,7 @@ def display_menu():
     print("-" * 95)
     print("Main - Adds and Updates data in database")
     print("refresh - Refresh Computer names for add")
+    print("disabled - Check Which Computer Accounts are disabled")
     print("read - Read text file")
     print("back - back to main menu")
     print("-" * 95)

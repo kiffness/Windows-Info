@@ -18,6 +18,8 @@ def main():
                     misc_func.powershell()
                 elif command_script == "refresh":
                     misc_func.refresh_list()
+                elif command_script == "disabled":
+                    misc_func.get_disabled()
                 elif command_script == "read":
                     misc_func.read_text()
                 elif command_script == "test":
@@ -45,6 +47,6 @@ def main():
             menu.main_menu()
     db.close()
     print("The application has closed succesfully")
-    
+
 if __name__ == "__main__":
     main()
