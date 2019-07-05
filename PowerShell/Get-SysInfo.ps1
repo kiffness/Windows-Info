@@ -37,5 +37,6 @@ $($IPv4)
 "@ | Out-File -FilePath 'F:\Windows_10_Refresh\Powershell\SysConfig.txt' -Encoding ascii -Force
 }
 else {
-    Write-Host -ForegroundColor Red "$Computer Can't be reached"
+    If (!(Select-String -Path 'F:\Windows_10_Refresh\Powershell\CouldNotConnect.txt' -pattern $Computer)){$Computer | out-file 'F:\Windows_10_Refresh\Powershell\CouldNotConnect.txt' -append
+    }
 }
