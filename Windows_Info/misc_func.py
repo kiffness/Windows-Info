@@ -117,9 +117,6 @@ def add_computer():
         else:
             print("")
 
-
-
-
 def powershell():
     """Runs Powershell Script, emails when done"""
     computer_name = get_computername()
@@ -129,8 +126,7 @@ def powershell():
 #         print("#" * 95)
         print(f"Trying to reach " + computer)
 #         print(" ")
-        PowerShellPath = r'C:\Windows\System32\WindowsPowerShell\v1.0'
-                         '\powershell.exe'
+        PowerShellPath = r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
         # Change Path here to where your powershell script is saved
         PowerShellCmd = "F:\\Windows_10_Refresh\\Powershell\\Get-SysInfo.ps1"
 
@@ -148,8 +144,7 @@ def powershell():
 
 def refresh_list():
     """Refreshes text file used to get computer names for powershell()"""
-    PowerShellPath = r'C:\Windows\System32\WindowsPowerShell\v1.0'
-                     '\powershell.exe'
+    PowerShellPath = r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
     PowerShellCmd = r'F:\Windows_10_Refresh\Powershell\computer_name_only.ps1'
 
     f = subprocess.Popen([PowerShellPath, '-ExecutionPolicy',
@@ -158,15 +153,14 @@ def refresh_list():
 
     print("Finished")
 
-def delete_old():
+
 
 def get_disabled():
     """
     Gets all the computer accounts that have been disabled and adds to
     a text file called CouldNotConnect
     """
-    PowerShellPath = r'C:\Windows\System32\WindowsPowerShell\v1.0'
-                     '\powershell.exe'
+    PowerShellPath = r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
     PowerShellCmd = r'F:\Windows_10_Refresh\Powershell\ADComputer.ps1'
     f = subprocess.Popen([PowerShellPath, '-ExecutionPolicy',
                          'Unrestricted',PowerShellCmd])

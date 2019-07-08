@@ -4,14 +4,14 @@ from contextlib import closing
 import menu
 from objects import Computer
 
-conn = None 
+conn = None
 
 def connect():
     """Connects to Sqlite Database"""
     global conn
     if not conn:
-        conn = sqlite3.connect(r"F:\Databases\SystemInfo.sqlite3") # Change path here to where your database is 
-        conn.row_factory = sqlite3.Row   
+        conn = sqlite3.connect(r"F:\Databases\SystemInfo.sqlite3") # Change path here to where your database is
+        conn.row_factory = sqlite3.Row
 
 
 def close():
@@ -33,6 +33,41 @@ def make_computer(row):
         row["ipaddress"],
     )
 
+def delete_computer():
+    """
+    Deletes disabled computer accounts from database, will first check if
+    if the computer exists in the table
+    """
+
+    file = 'F:\Windows_10_Refresh\Powershell\DisabledAccountNoBOM.txt'
+
+    with open(file, 'r') as f:
+
+        name_list = []
+        text = f.read().splitlines()
+
+        # Checks if the text file is empty, if not appends to name_list
+        if text:
+            count = len(text)
+            for line in text:
+                name_list.append(line)
+
+        with closing(conn.cursor()) as cursor:
+            for name in name_list:
+                # Checks if the computer name is in the database
+                cursor.execute(f"SELECT name FROM Computers WHERE name = ('{name}')")
+                result = cursor.fetchone()
+
+                if result:
+                    # if it exists delete it
+                    cursor.execute(f"DELETE FROM Computers WHERE name = ('{name}')")
+                    print(f"Deleted {name}")
+                else:
+                    # if not exists display a  message
+                    print(f"{name} not found")
+                conn.commit()
+
+
 def update_data(computer):
     """
     Updates Data Into relevent tables in Database. Params: Pass variables into the two classes and then just pass those into this function
@@ -43,7 +78,7 @@ def update_data(computer):
     with closing(conn.cursor()) as cursor:
         cursor.execute('SELECT name FROM Computers WHERE name=?', (computer.name,))
         result = cursor.fetchone()
-        
+
         if result:
             print(f"updating {computer.name} is being updated")
             cursor.execute(sql_updateinfo, (computer.username, computer.lastlogon, computer.ipaddress, computer.name))
@@ -62,7 +97,7 @@ def select_os():
             os = None
             choice = input("Please Select Os 1 or 2: ").rstrip()
             if choice == "1":
-                os = "Windows 7 SP1" 
+                os = "Windows 7 SP1"
                 break
             elif choice == "2":
                 os = "Windows 10"

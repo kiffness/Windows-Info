@@ -1,6 +1,6 @@
 ﻿Import-Module activedirectory
 
-Get-ADComputer -Filter {Enabled -eq $True} | Select-Object -ExpandProperty Name | Sort-Object | Out-File F:\Windows_10_Refresh\Powershell\AllComputerName.txt -Encoding utf8
+Get-ADComputer -Filter {Enabled -eq $True} -SearchBase 'OU=Smedley Computers, DC=js, DC=local'  | Select-Object -ExpandProperty Name | Sort-Object | Out-File F:\Windows_10_Refresh\Powershell\AllComputerName.txt -Encoding utf8
 
 $MyPath = "F:\Windows_10_Refresh\Powershell\AllComputerName.txt" # read the file in
 $MyFile = Get-Content $MyPath

@@ -24,9 +24,8 @@ def display_menu():
     print("COMMAND MENU")
     print("-" * 95)
     print("Main - Adds and Updates data in database")
-    print("refresh - Refresh Computer names for add")
-    print("disabled - Check Which Computer Accounts are disabled")
-    print("read - Read text file")
+    print("Refresh - Refresh Computer names for Main")
+    print("Disabled - Check Which Computer Accounts are disabled")
     print("back - back to main menu")
     print("-" * 95)
 
@@ -37,5 +36,6 @@ def display_query_menu():
     print("-" * 95)
     print("all - Shows all info")
     print("os - Select an os and show all pc's")
+    print("Delete - Deletes all computers in the disabled computer OU")
     print("back - Back to main menu")
     print("-" * 95)
