@@ -6,7 +6,8 @@ import secret
 from tqdm import tqdm
 
 import db
-from objects import Computer, LastLogon
+from objects import Computer, LastLogon, Date
+import objects
 
 def email():
     """Connect to email server and account, Send Email when script completes"""
@@ -114,30 +115,43 @@ def add_computer():
                                 totalslots=totalslots,
                                 lastlogon=lastlogon, ipaddress=ipaddress)
             db.update_data(computer)
+
         else:
             print("")
+
+def log_main(added, updated, not_connect):
+
+    log = r"F:\Windows_10_Refresh\Logs\main.txt"
+
+    with open (log, 'w') as f:
+        f.write("Computers that were added\n")
+        f.write("-" * 95)
+        f.write("\n")
+        f.writelines(f"{line}\n" for line in added)
+        f.write("Computers that were updated\n")
+        f.write("-" * 95)
+        f.write("\n")
+        f.writelines(f"{line}\n" for line in updated)
+        f.write("Computers that could not be connect to\n")
+        f.write("-" * 95)
+        f.write("\n")
+        f.writelines(f"{line}\n" for line in not_connect)
+    p = Date("main", "main")
+    p.format_date()
+
 
 def powershell():
     """Runs Powershell Script, emails when done"""
     computer_name = get_computername()
 
     for computer in computer_name:
-        print(" ")
-#         print("#" * 95)
-        print(f"Trying to reach " + computer)
-#         print(" ")
         PowerShellPath = r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
         # Change Path here to where your powershell script is saved
         PowerShellCmd = "F:\\Windows_10_Refresh\\Powershell\\Get-SysInfo.ps1"
 
         p = subprocess.Popen([PowerShellPath, '-ExecutionPolicy',
                              'Unrestricted', PowerShellCmd, computer])
-
-#         print("Gathering Information")
         p.communicate()
-
-
-        print(" ")
         add_computer()
 
     email()
@@ -162,6 +176,13 @@ def get_disabled():
     """
     PowerShellPath = r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
     PowerShellCmd = r'F:\Windows_10_Refresh\Powershell\ADComputer.ps1'
+    f = subprocess.Popen([PowerShellPath, '-ExecutionPolicy',
+                         'Unrestricted',PowerShellCmd])
+    f.communicate()
+
+def remove_bom():
+    PowerShellPath = r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+    PowerShellCmd = r'F:\Windows_10_Refresh\Powershell\Remove_Bom.ps1'
     f = subprocess.Popen([PowerShellPath, '-ExecutionPolicy',
                          'Unrestricted',PowerShellCmd])
     f.communicate()

@@ -141,5 +141,8 @@ PowerShell/Test.txt
 PowerShell/DisabledAccountNoBOM.txt
 PowerShell/DisabledComputer.txt
 PowerShell/CouldNotConnect.txt
+PowerShell/CouldNotConnectNoBom.txt
+PowerShell/SysConfig.text
+Logs
 .vs
 Test_program

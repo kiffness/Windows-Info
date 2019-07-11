@@ -1,10 +1,31 @@
 import sqlite3
 from contextlib import closing
 
+import misc_func
 import menu
-from objects import Computer
+from objects import Computer, Name
 
 conn = None
+updated = []
+added = []
+not_connect = []
+
+
+
+def remove_duplicates(x):
+    return list(dict.fromkeys(x))
+
+def logs():
+    file = "F:\Windows_10_Refresh\Powershell\CouldNotConnectNoBom.txt"
+
+    with open (file, 'r') as f:
+        text = f.read().splitlines()
+        for line in text:
+            not_connect.append(line.rstrip())
+
+    updated_nd = remove_duplicates(updated)
+    added_nd = remove_duplicates(added)
+    misc_func.log_main(added_nd, updated_nd, not_connect)
 
 def connect():
     """Connects to Sqlite Database"""
@@ -32,6 +53,7 @@ def make_computer(row):
         row["lastlogon"],
         row["ipaddress"],
     )
+
 
 def delete_computer():
     """
@@ -73,6 +95,7 @@ def update_data(computer):
     Updates Data Into relevent tables in Database. Params: Pass variables into the two classes and then just pass those into this function
     Used by misc_func.add_computer()
     """
+    log = "F:\Windows_10_Refresh\Logs\main_logs.txt"
     sql_updateinfo = "UPDATE Computers SET username = ?, lastlogon = ?, ipaddress= ? WHERE name = ?"
     sql_newinfo = "INSERT INTO Computers (name, username, windows, cpu, currentamount, totalslots, lastlogon, ipaddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     with closing(conn.cursor()) as cursor:
@@ -80,13 +103,25 @@ def update_data(computer):
         result = cursor.fetchone()
 
         if result:
-            print(f"updating {computer.name} is being updated")
-            cursor.execute(sql_updateinfo, (computer.username, computer.lastlogon, computer.ipaddress, computer.name))
+            updated.append(computer.name)
+            cursor.execute(sql_updateinfo, (computer.username,
+                                            computer.lastlogon,
+                                            computer.ipaddress,
+                                            computer.name))
         else:
-            print(f"{computer.username}'s pc added succesfully")
-            cursor.execute(sql_newinfo, (computer.name, computer.username, computer.windows, computer.cpu,
-                           computer.currentamount, computer.totalslots, computer.lastlogon, computer.ipaddress))
+            try:
+
+                added.append(computer.name)
+            except TypeError:
+                pass
+            cursor.execute(sql_newinfo, (computer.name, computer.username,
+                                         computer.windows, computer.cpu,
+                                         computer.currentamount,
+                                         computer.totalslots, computer.lastlogon,
+                                         computer.ipaddress))
+
         conn.commit()
+
 
 def select_os():
         """Function to query db based on os just enter the os like Windows 7 SP1"""

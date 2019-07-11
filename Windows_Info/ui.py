@@ -16,6 +16,8 @@ def main():
                 command_script = input("Enter Command: ").rstrip()
                 if command_script == "main":
                     misc_func.powershell()
+                    misc_func.remove_bom()
+                    db.logs()
                 elif command_script == "delete":
                     misc_func.delete_disabled()
                 elif command_script == "refresh":
